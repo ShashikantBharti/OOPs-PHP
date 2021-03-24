@@ -31,7 +31,7 @@ class Person
         // echo '<pre>';
         // var_dump($property, $value);
 
-        // throw new Exception(ucfirst($property) ." doesn't exists!");
+        // throw new Exception(ucfirst($property) ." property doesn't exists!");
 
         if($property === 'password') {
             return $this->name." ";
@@ -40,10 +40,23 @@ class Person
     }
 
     // __call() magic method.
-    public function __call() {
+    public function __call($name, $args) {
         
+        // echo '<pre>';
+        // var_dump($name, $args);
+
+        // throw new Exception(ucfirst($name) ." method doesn't exists!");
+
+        if($name === 'getPhoneNumber' || $name === 'getMobileNumber') {
+            return $this->getPhone();
+        }
+        return " Method " . ucfirst($name) ." doesn't exists!";  
+
     }
 
+    public function getPhone() {
+        return $this->mobile;
+    }
 }
 
 $me = new Person();
@@ -52,14 +65,26 @@ echo '<br>';
 
 echo $me->username;
 echo '<br>';
-echo $me->password = 'Surya';
+// echo $me->password = 'Surya';
+echo '<br>';
 
-// try{
-//     echo $me->password = 'Surya';
-// } catch(Exception $e) {
-//     echo $e->getMessage();
-// }
+try{
+    echo $me->password = 'Surya';
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
 
+echo '<br>';
 
+try{
+    echo $me->getPhoneNumber();
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+
+echo '<br>';
+echo $me->getMobileNumber();
+echo '<br>';
+echo $me->getMobilePhone();
 
 ?>
