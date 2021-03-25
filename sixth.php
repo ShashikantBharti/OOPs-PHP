@@ -4,6 +4,7 @@
  * Author Shashikant Bharti
  * Date   24 March 2021
  * Time   19:04
+ * Desc   Magic Functions (__toString, __get, __set, __call, __callStatic, __invoke, __sleep and __wakeup, __clone)
  */
 
 // Creating Class.
@@ -49,6 +50,12 @@ class Person
 
         if($name === 'getPhoneNumber' || $name === 'getMobileNumber') {
             return $this->getPhone();
+        } else if($name === 'setPhoneNumber' || $name === 'setMobileNumber') {
+            // $this->setPhone($args[0]);
+
+            call_user_func_array([$this, 'setPhone'], $args);
+
+            return 1;
         }
         return " Method " . ucfirst($name) ." doesn't exists!";  
 
@@ -57,6 +64,16 @@ class Person
     public function getPhone() {
         return $this->mobile;
     }
+
+    public function setPhone($phone) {
+        $this->mobile = $phone;
+    }
+
+    // __callStatic magic method
+    public static function __callStatic($name, $args) {
+        echo ucfirst($name)."";
+    }
+
 }
 
 $me = new Person();
@@ -86,5 +103,8 @@ echo '<br>';
 echo $me->getMobileNumber();
 echo '<br>';
 echo $me->getMobilePhone();
-
+echo '<br>';
+$me->setMobileNumber('7521037123');
+echo $me->getMobileNumber();
+echo '<br>';
 ?>
