@@ -14,9 +14,13 @@ class Car
     private $color = 'Red';
     private $speed = '5000rpm';
 
-    public function __construct($color, $speed) {
-        $this->color = $color;
-        $this->speed = $speed;
+    public function __construct($color = null, $speed = null) {
+        if($color !== null and $speed !== null) {
+            $this->color = $color;
+            $this->speed = $speed;
+        } else {
+            echo '<p style="color:red" >Error: Exactly Two Parameters Required in constructor. </p>';
+        }
     }
 
     public function getColor() {
@@ -30,7 +34,7 @@ class Car
 }
 
 // Creating Instance of Class
-$myCar = new Car('Green', '7000rpm');
+$myCar = new Car();
 $myCar2 = new Car('White', '8000rpm');
 // Initializing Values;
 

@@ -17,6 +17,7 @@ class Car
 
     const FIRST_NAME = 'Shashikant';
     const LAST_NAME = 'Bharti';
+    
     const DETAILS = [
         'age' => 24,
         'address' => 'Lucknow'

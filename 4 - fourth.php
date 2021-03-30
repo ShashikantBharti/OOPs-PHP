@@ -14,8 +14,14 @@ class Car
     public $color = 'Red';
     public $speed = '5000rpm';
     private static $availableColors = [
-        'Red', 'Green', 'Blue', 'Black', 'Cyan', 'Magenta'
+        'Red', 
+        'Green', 
+        'Blue', 
+        'Black', 
+        'Cyan', 
+        'Magenta'
     ];
+    
     public static $counter = 0;
 
     public function __construct() {
