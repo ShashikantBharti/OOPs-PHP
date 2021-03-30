@@ -11,8 +11,18 @@
 
 class Person
 {
-    public $name = 'Shashikant Bharti';
-    public $mobile = '7080281021';
+    public $name;
+    public $mobile;
+
+    // __construct() and __destruct() magic methods
+    public function __construct($name, $mobile) {
+        $this->name = $name;
+        $this->mobile = $mobile;
+    }
+
+    public function __destruct() {
+        echo "Destructor Called!";
+    }
 
     // __toString() magic Method.
     public function __toString() {
@@ -69,14 +79,34 @@ class Person
         $this->mobile = $phone;
     }
 
-    // __callStatic magic method
+    // __callStatic() magic method.
     public static function __callStatic($name, $args) {
-        echo ucfirst($name)."";
+        echo ucfirst($name)." Static method doesn't exists! ";
+    }
+
+    // __invoke() magic method.
+    public function __invoke() {
+        echo "Object invoked!";
+    }
+
+    // __sleep() and __wakeup() magic methods.
+    public function __sleep() {
+        unset($this->mobile);
+        return ['name'];
+    }
+
+    public function __wakeup() {
+        echo '<br>Wake Up Surya! Wake Up!';
+    }
+
+    // __clone() magic method.
+    public function __clone() {
+        
     }
 
 }
 
-$me = new Person();
+$me = new Person('Shashikant Bharti', '7080281021');
 echo $me;
 echo '<br>';
 
@@ -107,4 +137,22 @@ echo '<br>';
 $me->setMobileNumber('7521037123');
 echo $me->getMobileNumber();
 echo '<br>';
+$me::delete();
+echo '<br>';
+$me();
+echo '<br>';
+var_dump(is_callable($me));
+echo '<br>';
+$me2 = serialize($me);
+echo $me2;
+$me3 = unserialize($me2);
+echo '<br>';
+echo '<pre>';
+var_dump($me);
+var_dump($me3);
+echo '</pre>';
+var_dump($me3 === $me);
+
+
+
 ?>
